@@ -9,7 +9,8 @@ class window.Hand extends Backbone.Collection
     ""
 
   stand: ->
-    console.log "stand called"
+    @trigger 'stand', @
+    ""
 
   hasAce: -> @reduce (memo, card) ->
     console.log "getting called"

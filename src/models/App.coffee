@@ -4,18 +4,21 @@ class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', deck = new Deck()
     @set 'game', new Game()
+   
+    new GameView({ model : @.get('game')}).render()
+
     @get('game') .set 'deck', @.get('deck')
     @newGame()
     # @get('game') .set 'player', @.get('playerHand')
     # @get('game') .set 'dealer', @.get('dealerHand')
-    @get('playerHand').on('hit', (->@get('game').checkPlayerHand()), @)
-    @get('playerHand').once('stand', (->@get('game').startDealer()), @)
+
     @listenTo @get('game'), 'reset', @.newGame
     ""
   newGame: ->
-    console.log("called once")
     @set 'playerHand', @get('deck').dealPlayer()
     @set 'dealerHand', @get('deck').dealDealer()
+    @get('playerHand').on('hit', (->@get('game').checkPlayerHand()), @)
+    @get('playerHand').once('stand', (->@get('game').startDealer()), @)
     @get('game') .set 'player', @.get('playerHand')
     @get('game') .set 'dealer', @.get('dealerHand')
     @trigger 'reset'

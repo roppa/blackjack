@@ -15,7 +15,6 @@ class window.Game extends Backbone.Model
     @.set 'dealerOrPlayer', 'player'
 
   checkPlayerHand: ->
-    #console.log @.get('player').scores()
     if @.get('player').scores()[0] > 21 and @.get('player').scores()[1] > 21
       @.set "winner", "dealer"
       @.alertWinner "dealer", "player"
@@ -47,20 +46,13 @@ class window.Game extends Backbone.Model
       @.alertWinner 'dealer', 'player'
     else
       @.alertWinner 'player', 'dealer'
-      #this functionality is incomplete
-
-    #dealer hand greater than player hand? dealer wins, else player wins.
-    #call @.reset()
   
   alertWinner: (winner, loser) ->
-      @.set "winner", winner
-      @.set winner + "Wins", @.get(winner + "Wins") + 1
+      @set "winner", winner
+      @set winner + "Wins", @.get(winner + "Wins") + 1
       resetMethod = @.reset.bind(@)
       setTimeout (->alert("#{loser} loses! #{winner} wins!"); resetMethod(); ""), 200
-
+      #consider removing the above once we have a way to display wins and losses on screen
   reset: ->
-    console.log "hope this is called"
     @trigger 'reset', @
     ""
-    # @get('game') .set 'player', @.get('playerHand')
-    # @get('game') .set 'dealer', @.get('dealerHand')

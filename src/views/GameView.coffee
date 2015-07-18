@@ -1,9 +1,12 @@
 class window.GameView extends Backbone.View
 
-  className: 'game'
+  tagName: "div",
 
-  template: _.template ''
+  className: "game-container",
 
-  initialize: -> @render()
+  initialize: -> 
+    $('body').append @$el;
+    @render()
 
   render: ->
+    @$el.html "<p>(" + @model.get('playerWins') + ")</p>"

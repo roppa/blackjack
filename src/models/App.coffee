@@ -8,7 +8,7 @@ class window.App extends Backbone.Model
     @set 'game', new Game()
     @get('game') .set 'player', @.get('playerHand')
     @get('game') .set 'dealer', @.get('dealerHand')
-    @get('playerHand') .on 'hit', -> 
+    @get('playerHand').on('hit', (->@get('game').checkHand()), @)
     ""
     #add on 'stand' event on playerHand, it triggers dealerHand
     #initialize game, set current player to player ... 

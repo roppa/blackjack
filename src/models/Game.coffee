@@ -23,23 +23,20 @@ class window.Game extends Backbone.Model
   startDealer: ->
     console.log "dealer started"
     #sort this out
-    @.get('dealer').at(0).flip()
-
+    if @.get('dealer').at(0).get('revealed') is false
+      @.get('dealer').at(0).flip()
 
     if @.get('dealer').scores()[0] is 21 or @.get('dealer').scores()[1] is 21
-      @.set "winner", "dealer"
-      alert "blackjack! dealer wins!"
-    if @.get('dealer').scores()[0] > 21 and @.get('dealer').scores()[1] > 21
-      alert("dealer loses! player wins!")
-    if @.get('dealer').scores()[0] < 17 or @.get('dealer').scores()[1] < 17
+      @.alertWinner
+    else if @.get('dealer').scores()[0] > 21 and @.get('dealer').scores()[1] > 21
+      @.alertWinner "player", "dealer"
+    else if @.get('dealer').scores()[0] > @.get('player').scores()[0]
+      alert("player loses! dealer wins!")
+    else if @.get('dealer').scores()[0] < 17 or @.get('dealer').scores()[1] < 17
       context = this
       setTimeout (->context.get('dealer').hit(); context.startDealer(); ""), 1000
-    #Any Ace and picture card - blackjack - won
-    #if dealer > player - dealer wins
-
-    #if player hand is bust
-    #if player has stood
-      #check dealer score
-        #if dealer has blackjack they have won
-        #if < 17, dealer hits
-        #if > 21 dealer loses, player wins
+  
+  alertWinner: (winner, loser) ->
+      @.set "winner", winner
+      @.set winner + "Wins", @.get(winner + "Wins") + 1
+      setTimeout (->alert("#{winner} loses! #{loser} wins!")), 200

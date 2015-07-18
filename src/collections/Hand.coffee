@@ -13,7 +13,6 @@ class window.Hand extends Backbone.Collection
     ""
 
   hasAce: -> @reduce (memo, card) ->
-    console.log "getting called"
     memo or card.get('value') is 1
   , 0
 

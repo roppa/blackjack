@@ -11,6 +11,11 @@ class window.AppView extends Backbone.View
 
   initialize: ->
     @render()
+    context = @
+    @model.on 'reset', -> 
+      console.log('reset detected')
+      context.render()
+      ""
 
   render: ->
     @$el.children().detach()

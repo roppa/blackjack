@@ -60,7 +60,7 @@ class window.Game extends Backbone.Model
 
   reset: ->
     console.log "hope this is called"
-    @.set 'player', @.get('deck').dealPlayer() #we might need to do a get
-    @.set 'dealer', @.get('deck').dealDealer()
+    @trigger 'reset', @
+    ""
     # @get('game') .set 'player', @.get('playerHand')
     # @get('game') .set 'dealer', @.get('dealerHand')

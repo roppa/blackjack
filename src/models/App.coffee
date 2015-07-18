@@ -6,10 +6,10 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
     @set 'game', new Game()
+    @get('game') .set 'deck', @.get('deck')
     @get('game') .set 'player', @.get('playerHand')
-    #@get('game') .set 'currentPlayer', 'player') chose to set this in game.initialize for now
     @get('game') .set 'dealer', @.get('dealerHand')
-    @get('playerHand').on('hit', (->@get('game').checkHand()), @)
+    @get('playerHand').on('hit', (->@get('game').checkPlayerHand()), @)
     @get('playerHand').once('stand', (->@get('game').startDealer()), @)
     ""
     #add on 'stand' event on playerHand, it triggers dealerHand
